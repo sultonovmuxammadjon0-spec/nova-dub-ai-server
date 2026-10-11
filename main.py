@@ -70,14 +70,12 @@ def translate(request: TranslationRequest):
         response.raise_for_status()
         data = response.json()
 
-        translated = data.get(
-            "responseData", {}
-        ).get("translatedText")
+        translated = data.get("responseData", {}).get("translatedText")
 
         if data.get("responseStatus") != 200 or not translated:
             raise HTTPException(
                 status_code=502,
-                detail="Tarjima xizmati natija bermadi"
+                detail="Tarjima xizmati javob bermadi"
             )
 
         return {
@@ -91,6 +89,5 @@ def translate(request: TranslationRequest):
     except requests.RequestException:
         raise HTTPException(
             status_code=502,
-            detail="Tarjima xizmatiga ulanib bo‘lmadi"
+            detail="Tarjima xizmatiga ulanib bo'lmadi"
         )
-
